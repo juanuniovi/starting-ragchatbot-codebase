@@ -2,6 +2,21 @@
 
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
+## Setup
+
+This project uses **uv** as the package manager. Always use `uv` for dependency management.
+
+```bash
+# Install dependencies
+uv sync
+
+# Add new dependencies
+uv add package_name
+
+# Create .env file with required API key
+echo "ANTHROPIC_API_KEY=your_key_here" > .env
+```
+
 ## Commands
 
 ```bash
@@ -73,3 +88,15 @@ Lesson Link: [url]
 Lesson 1: [title]
 [content...]
 ```
+
+Documents placed in `docs/` are automatically loaded on server startup.
+
+## Data Persistence
+
+- **ChromaDB**: Vector database persists to `backend/chroma_db/` (auto-created on first run)
+- **Sessions**: In-memory only, reset on server restart
+- **Collections**: Two ChromaDB collections maintained:
+  - `course_catalog`: Course metadata for fuzzy name matching
+  - `course_content`: Searchable text chunks with embeddings
+
+To reset the vector database, delete `backend/chroma_db/` and restart the server.
